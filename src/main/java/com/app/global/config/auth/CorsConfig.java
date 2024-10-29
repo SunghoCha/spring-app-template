@@ -1,4 +1,4 @@
-package com.app.global.security;
+package com.app.global.config.auth;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

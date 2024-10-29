@@ -1,7 +1,6 @@
-package com.app.domain.member.constant;
+package com.app.domain.user.constant;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 @Getter

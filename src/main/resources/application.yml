@@ -1,1 +1,19 @@
-spring.application.name=spring-api-app
+spring:
+  profiles:
+    active: dev, oauth
+  session:
+    store-type: jdbc
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: create
+      properties:
+        hibernate:
+          show_sql: true
+          format_sql: true
+          default_batch_fetch_size: 100
+    defer-datasource-initialization: true

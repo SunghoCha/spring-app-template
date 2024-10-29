@@ -1,7 +1,7 @@
-package com.app.domain.member;
+package com.app.domain.user;
 
 import com.app.domain.common.BaseTimeEntity;
-import com.app.domain.member.constant.Role;
+import com.app.domain.user.constant.Role;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
+@Table(name = "users")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User extends BaseTimeEntity {
 
