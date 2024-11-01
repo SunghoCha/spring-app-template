@@ -26,13 +26,14 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource))
                 .csrf(AbstractHttpConfigurer::disable)
                 .headers(headers -> headers
-                        .frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin))
+                        .frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin) // 클릭채킹 방어 (~h2 db용으로 설정)
+                        .xssProtection(Customizer.withDefaults())) // xss
                 .logout(logout -> logout.logoutSuccessUrl("/"))
                 .oauth2Login(oauth -> oauth
                         .userInfoEndpoint(userInfoEndpoint -> userInfoEndpoint
                                 .userService(customOAuth2UserService))
                 .defaultSuccessUrl("/api/health")) // 로그인성공 후 임시 경로.
-                .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()));
+                .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults())); // 액세스 토큰 검증용으로 리소스서버 설정
 
         return http.build();
     }
