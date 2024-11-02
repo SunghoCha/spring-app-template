@@ -3,8 +3,9 @@ server:
   servlet:
     context-path: /
 
-
 spring:
+  profiles:
+    active: oauth
   # todo 개발 데이터베이스 연결
   datasource:
     url: jdbc:h2:mem:test
@@ -29,7 +30,8 @@ spring:
 
 logging:
   level:
-    org.hibernate.type: trace # 콘솔창에 조건에 바인딩되는 값 및 조회 결과 출력
-    com.app: debug # todo 패키지 수정
+    org.hibernate.type: trace # Hibernate 타입 관련 정보 출력
+    com.app: debug
+    org.springframework.security: DEBUG
 
 

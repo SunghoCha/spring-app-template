@@ -28,7 +28,6 @@ import java.util.Collections;
 @Service
 public class CustomOauth2UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
 
-    private final UserRepository userRepository;
     private final UserService userService;
     private final HttpSession httpSession;
     private final ObjectMapper objectMapper;
@@ -49,10 +48,12 @@ public class CustomOauth2UserService implements OAuth2UserService<OAuth2UserRequ
         OAuthAttributes attributes = OAuthAttributes.of(registrationId, userNameAttributeName, oAuth2User.getAttributes());
 
         User user = userService.saveOrUpdate(attributes);
+        log.info("유저 정보 생성 또는 업데이트 완료");
         // 무상태 코드로 바꿀 예정
         String userJson = convertToJson(new SessionUser(user));
         httpSession.setAttribute("user", userJson);
-
+        System.out.println("=========================================" + attributes.getNameAttributeKey() + "=========================================");
+        log.info("=========================================" + attributes.getNameAttributeKey() + "=========================================");
         // 싱글톤으로 하면 불변이라 권한 추가 불가능함에 유의
         // 토큰기반 무상태 방식으로 하고 @AuthenticationPrincipal로 DefaultOAuth2User 정보 가져오는 방식으로 해야할듯
         return new DefaultOAuth2User(
