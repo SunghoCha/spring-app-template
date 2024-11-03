@@ -18,6 +18,12 @@ public class OauthConfig {
     @Value("${token.secret}")
     private String tokenSecret;
 
+    @Value("${token.access-token-expiration-time}")
+    private String accessTokenExpirationTime;
+
+    @Value("${token.refresh-token-expiration-time}")
+    private String refreshTokenExpirationTime;
+
     @Bean
     public NimbusJwtDecoder customJwtDecoder() {
         return NimbusJwtDecoder.withSecretKey(new SecretKeySpec(tokenSecret.getBytes(UTF_8), "HmacSHA256")).build();
@@ -36,5 +42,10 @@ public class OauthConfig {
         source.registerCorsConfiguration("/**", corsConfiguration);
 
         return source;
+    }
+
+    @Bean
+    public CustomOAuth2SuccessHandler customOAuth2SuccessHandler() {
+        return new CustomOAuth2SuccessHandler(accessTokenExpirationTime, refreshTokenExpirationTime, tokenSecret);
     }
 }

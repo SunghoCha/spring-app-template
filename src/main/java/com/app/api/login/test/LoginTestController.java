@@ -1,6 +1,7 @@
 package com.app.api.login.test;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -20,6 +21,8 @@ import java.util.Collection;
 public class LoginTestController {
 
     private final OAuth2AuthorizedClientService authorizedClientService;
+    @Value("${token.access-token-expiration-time}")
+    private String accessTokenExpirationTime;
 
     @GetMapping("/test/login")
     public String loginTest() {
@@ -55,5 +58,12 @@ public class LoginTestController {
     public String request() {
 
         return "guest";
+    }
+
+    @ResponseBody
+    @GetMapping("/yml-test")
+    public String ymlTest() {
+
+        return accessTokenExpirationTime;
     }
 }

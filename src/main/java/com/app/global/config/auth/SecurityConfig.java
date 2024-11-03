@@ -21,6 +21,7 @@ public class SecurityConfig {
     private final CustomOauth2UserService customOAuth2UserService;
     private final CustomRequestLoggingFilter requestLoggingFilter;
     private final NimbusJwtDecoder customJwtDecoder;
+    private final CustomOAuth2SuccessHandler customOAuth2SuccessHandler;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -40,6 +41,7 @@ public class SecurityConfig {
                 .oauth2Login(oauth -> oauth
                         .userInfoEndpoint(userInfoEndpoint -> userInfoEndpoint
                                 .userService(customOAuth2UserService))
+                        .successHandler(customOAuth2SuccessHandler)
                 .defaultSuccessUrl("/test")) // 로그인성공 후 임시 경로.
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.decoder(customJwtDecoder))) // jwt 토큰을 검증하는 빈들과 클래스를 생성하고 초기화함
                 .addFilterBefore(requestLoggingFilter, OAuth2LoginAuthenticationFilter.class);
