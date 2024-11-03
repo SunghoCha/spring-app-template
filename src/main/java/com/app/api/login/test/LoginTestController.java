@@ -31,7 +31,7 @@ public class LoginTestController {
 
 
     @ResponseBody
-    @GetMapping("/test")
+    @GetMapping("/test") // 인가서버의 액세스토큰
     public ResponseEntity<TestResponse> requestTest() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
@@ -45,7 +45,6 @@ public class LoginTestController {
         }
         return null;
     }
-
 
     @ResponseBody
     @GetMapping("/authenticated")
